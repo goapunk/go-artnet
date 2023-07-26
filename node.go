@@ -125,6 +125,13 @@ func (n *Node) Start() error {
 	return nil
 }
 
+func (n *Node) SendEphemeralPacket(data []byte) {
+	n.sendCh <- netPayload{
+		address: broadcastAddr,
+		data:    data,
+	}
+}
+
 // pollReplyLoop loops to reply to ArtPoll packets
 // when a controller asks for continuous updates, we do that using a ticker
 func (n *Node) pollReplyLoop() {
